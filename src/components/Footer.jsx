@@ -10,7 +10,7 @@ export const Footer = () => {
             className='logo'
             target='_blank'
             rel='noreferrer'
-            href='https://co.linkedin.com/in/jeanpaulduarte'
+            href='https://github.com/Jeanp78'
           >
             <img src='github.svg' width='30px' alt='' />
           </a>
@@ -20,7 +20,7 @@ export const Footer = () => {
             className='logo'
             target='_blank'
             rel='noreferrer'
-            href='https://github.com/Jeanp78'
+            href='https://co.linkedin.com/in/jeanpaulduarte'
           >
             <img src='linkedin.svg' width='30px' alt='' />
           </a>
