@@ -19,6 +19,7 @@ function App () {
     playerTwo: getPlayerTwo()
   })
   const [turn, setTurn] = useState(getTurn())
+  const [points, setPoints] = useState({ pOne: 0, pTwo: 0 })
 
   const updateBoard = (index) => {
     if (board[index] || winner) return
@@ -31,6 +32,9 @@ function App () {
     saveGame({ board: newBoard, turn: newTurn })
     setTurn(newTurn)
     if (getWinner(newBoard, turn)) {
+      const newPoints = points
+      turn === players.playerOne ? newPoints.pOne++ : newPoints.pTwo++
+      setPoints(newPoints)
       winnerSound.play()
       resetGameStorage()
       const newWinner = turn
@@ -50,7 +54,7 @@ function App () {
 
   const handleCharacters = (event) => {
     event.preventDefault()
-    const [playerOne, playerTwo] = event.target.form
+    const [playerOne, playerTwo] = event.target
     setPlayers({
       playerOne: playerOne.value,
       playerTwo: playerTwo.value
@@ -72,8 +76,8 @@ function App () {
         <button onClick={resetGame}>Restaurar juego</button>
         <button onClick={handleModal}>Cambiar personajes</button>
         <Board board={board} updateBoard={updateBoard} />
-        <CurrentTurn turn={turn} playerOne={players.playerOne} playerTwo={players.playerTwo} />
         <ModalFinish winner={winner} resetGame={resetGame} />
+        <CurrentTurn points={points} turn={turn} playerOne={players.playerOne} playerTwo={players.playerTwo} />
         <ModalCharacters players={players} handleModal={handleModal} open={open} handleCharacters={handleCharacters} />
         <audio src='winner-sound.mp3' hidden />
         <audio src='tap.mp3' hidden />

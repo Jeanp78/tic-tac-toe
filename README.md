@@ -33,3 +33,4 @@ Este proyecto es una implementación simple del juego "Tic Tac Toe" (tres en lí
 - Detección automática de ganador o empate.
 - Reinicio del juego.
 - Guardado de partida en el localStorage
+- Sistema de puntos (Partidas ganadas)

@@ -1,10 +1,16 @@
 import { Square } from './Square'
 
-export const CurrentTurn = ({ turn, playerOne, playerTwo }) => {
+export const CurrentTurn = ({ points, turn, playerOne, playerTwo }) => {
   return (
     <section className='turn'>
-      <Square isSelected={turn === playerOne}> {playerOne} </Square>
-      <Square isSelected={turn === playerTwo}> {playerTwo} </Square>
+      <div>
+        <Square isSelected={turn === playerOne}> {playerOne}</Square>
+        Puntos: {points.pOne}
+      </div>
+      <div>
+        <Square isSelected={turn === playerTwo}> {playerTwo} </Square>
+        Puntos: {points.pTwo}
+      </div>
     </section>
   )
 }

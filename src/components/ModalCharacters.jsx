@@ -21,7 +21,7 @@ export const ModalCharacters = ({ handleModal, open, handleCharacters, players }
     <section className='winner'>
       <div className='text'>
         <h2>Cambiar Caracteres</h2>
-        <form>
+        <form onSubmit={handleCharacters}>
           <header className='character-inputs-container'>
             <select onChange={handleCharactersSelected} className='character-select' defaultValue={players.playerOne}>
               <option hidden value={players.playerOne}>
@@ -49,7 +49,7 @@ export const ModalCharacters = ({ handleModal, open, handleCharacters, players }
             </select>
           </header>
           <footer>
-            <button onClick={handleCharacters}>
+            <button type='submit'>
               Actualizar
             </button>
             <button onClick={handleModal}>
