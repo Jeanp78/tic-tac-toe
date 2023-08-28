@@ -8,7 +8,7 @@ export const resetGameStorage = () => {
   window.localStorage.removeItem('turn')
 }
 
-export const saveCharacters = ({ pOne, pTwo }) => {
-  if (pOne) window.localStorage.setItem('pOne', JSON.stringify(pOne))
-  if (pTwo) window.localStorage.setItem('pTwo', JSON.stringify(pTwo))
+export const saveCharacters = ({ playerOne, playerTwo }) => {
+  if (playerOne) window.localStorage.setItem('playerOne', JSON.stringify(playerOne))
+  if (playerTwo) window.localStorage.setItem('playerTwo', JSON.stringify(playerTwo))
 }

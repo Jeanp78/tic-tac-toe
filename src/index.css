@@ -31,8 +31,8 @@ body {
   box-sizing: border-box;
 }
 
-li{
-    list-style: none;
+li {
+  list-style: none;
 }
 
 .board {
@@ -157,6 +157,7 @@ li{
 
 .character-inputs-container {
   display: flex;
+  justify-content: center;
   gap: 20px;
 }
 
@@ -185,29 +186,28 @@ li{
   appearance: none;
 }
 
-.footer-links{
-    display: flex;
-    align-items: center;
-    gap: 50px;
-    width: 100%;
-    padding: 15px 20px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  padding: 15px 20px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
 
-.links{
-    display: flex;
-    gap: 15px ;
-    align-items: center;
+.links {
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }
 
-.logo{
-    display: flex;
-    align-items: center;
+.logo {
+  display: flex;
+  align-items: center;
 }
 
-.logo:hover{
-    transform: scale(1.1) rotate(5deg); 
-
+.logo:hover {
+  transform: scale(1.1) rotate(5deg);
 }

@@ -7,24 +7,18 @@ import { Board } from './components/Board'
 import { ModalCharacters } from './components/ModalCharacters'
 import { resetGameStorage, saveCharacters, saveGame } from './utils/saveGame'
 import { Footer } from './components/Footer'
+import { getBoard, getPlayerOne, getPlayerTwo, getTurn } from './utils/getters'
 
 // prettier-ignore
 function App () {
   const [winner, setWinner] = useState(null)
-  const [board, setBoard] = useState(
-    () =>
-      JSON.parse(window.localStorage.getItem('board')) || Array(9).fill(null)
-  )
+  const [board, setBoard] = useState(getBoard)
   const [open, setOpen] = useState(false)
-  const [playerOne, setPlayerOne] = useState(
-    () => JSON.parse(window.localStorage.getItem('pOne')) || '✖️'
-  )
-  const [playerTwo, setPlayerTwo] = useState(
-    () => JSON.parse(window.localStorage.getItem('pTwo')) || '⭕'
-  )
-  const [turn, setTurn] = useState(
-    JSON.parse(window.localStorage.getItem('turn')) || playerOne
-  )
+  const [players, setPlayers] = useState({
+    playerOne: getPlayerOne(),
+    playerTwo: getPlayerTwo()
+  })
+  const [turn, setTurn] = useState(getTurn())
 
   const updateBoard = (index) => {
     if (board[index] || winner) return
@@ -33,7 +27,7 @@ function App () {
     const newBoard = [...board]
     newBoard[index] = turn
     setBoard(newBoard)
-    const newTurn = turn === playerOne ? playerTwo : playerOne
+    const newTurn = turn === players.playerOne ? players.playerTwo : players.playerOne
     saveGame({ board: newBoard, turn: newTurn })
     setTurn(newTurn)
     if (getWinner(newBoard, turn)) {
@@ -54,17 +48,21 @@ function App () {
     resetGameStorage()
   }
 
-  const handlePlayerOne = ({ target }) => {
-    setTurn(target.value)
-    setPlayerOne(target.value)
-    saveCharacters({ pOne: target.value })
+  const handleCharacters = (event) => {
+    event.preventDefault()
+    const [playerOne, playerTwo] = event.target.form
+    setPlayers({
+      playerOne: playerOne.value,
+      playerTwo: playerTwo.value
+    })
+    setTurn(playerOne.value)
+    saveCharacters({ playerOne: playerOne.value, playerTwo: playerTwo.value })
     resetGame()
+    handleModal()
   }
 
-  const handlePlayerTwo = ({ target }) => {
-    setPlayerTwo(target.value)
-    saveCharacters({ pTwo: target.value })
-    resetGame()
+  const handleModal = () => {
+    setOpen(!open)
   }
 
   return (
@@ -72,11 +70,11 @@ function App () {
       <main className='board'>
         <h1>Tic tac toe</h1>
         <button onClick={resetGame}>Restaurar juego</button>
-        <button onClick={() => setOpen(!open)}>Cambiar personajes</button>
+        <button onClick={handleModal}>Cambiar personajes</button>
         <Board board={board} updateBoard={updateBoard} />
-        <CurrentTurn turn={turn} playerOne={playerOne} playerTwo={playerTwo} />
+        <CurrentTurn turn={turn} playerOne={players.playerOne} playerTwo={players.playerTwo} />
         <ModalFinish winner={winner} resetGame={resetGame} />
-        <ModalCharacters setOpen={setOpen} open={open} handlePlayerOne={handlePlayerOne} handlePlayerTwo={handlePlayerTwo} playerOne={playerOne} playerTwo={playerTwo} />
+        <ModalCharacters players={players} handleModal={handleModal} open={open} handleCharacters={handleCharacters} />
         <audio src='winner-sound.mp3' hidden />
         <audio src='tap.mp3' hidden />
       </main>
